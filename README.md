@@ -13,10 +13,11 @@ Recent searches are storedin localStorage and can be easily accessed through but
 * Bootstrap
 
 ## Usage
-The page can be easily accessed at 
-LINK HERE
+The page can be easily accessed on 
+[GitHub](https://github.com/jecoc0/weater-dashboard)
 
-Picture Here
+![Dashboard](assets/images/Screen%20Shot%202022-04-05%20at%205.02.25%20PM.png)
+
 
 ## Contributors
 Jessica Groves 
