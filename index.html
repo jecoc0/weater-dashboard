@@ -15,29 +15,41 @@
   <header class="bg-primary text-white text-center p-2 m-1 mb-0 w-100">
     <h1>Weather Dashboard</h1>
   </header>
-  <main>
-    <div class="d-flex flex-row align-items-center">
-      <div class="bg-secondary col-3">
-        <div class="">
-          <form action="search" class="flex p-5" id="city-search">
-            <h3>Enter City Name</h3>
-            <input id="city" type="text" />
-            <button class="btn-sm btn-outline-primary m-1 search-cities" type="submit" id="search-cities">Find
+
+
+  <main class="">
+    <div class="d-flex">
+      <div class="d-flex flex-column bg-secondary m-1 col-3" id="left-column">
+        <div class="d-flex flex-row p-2 mb-5 justify-content-center" id="search-quadrant">
+          <form action="search" class="p-5" id="city-search">
+            <h3 class="text-white">Enter City Name</h3>
+            <input id="city-input" type="text" />
+            <button class="btn-sm btn-outline-info mt-2" id="search-cities">Find
               Weather</button>
           </form>
         </div>
+        <div class="d-flex flex-row p-2 mb-3" id="history-div">
+          <div class="d-grid gap-2 p-2 flex-column w-100" id="history-button-div">
+            <Button class="btn-light btn">Historical #1</Button>
+            <Button class="btn-light btn">Historical #2</Button>
+            <Button class="btn-light btn">Historical #3</Button>
+            <Button class="btn-light btn">Historical #4</Button>
+            <Button class="btn-light btn">Historical #5</Button>
+          </div>
+        </div>
       </div>
 
-      <div class="mt-2 col-8">
-        <div class="p-4 flex" id="city-results">
-          <h3>North Dakota (April 3, 2022)</h3>
-          <div class="d-flex flex-row">
-            <div class="col-2">
-              <img src="./assets/images/testicon.png" />
+      <div class="d-flex flex-column col-9 bg-light" id="right-column">
+        <div class="p-4 d-flex flex-column col-8" id="city-results">
+          <h3 id="named-city"></h3>
+          <div class="d-flex flex-row" id="current-weather-div">
+            <div class="d-flex flex-column" id="icon-column">
+              <img id="icon" src="./assets/images/testicon.png" />
             </div>
-            <div class="col-8">
+            <div class="d-flex flex-column" id="current-info-column">
+
               <p>
-                Temperature: <span id="temp"></span>
+                Temperature:
                 <br />
                 Weather Conditions:
                 <br />
@@ -50,56 +62,38 @@
             </div>
           </div>
         </div>
-      </div>
-    </div>
-    <!-- <div class="bg-secondary border border-2 border-secondary"></div> -->
-    <div class="d-flex flex-row bg-secondary">
-      <div class="col-3 bg-secondary d-grid gap-2 p-2 container">
-        <Button class="btn-light btn">Historical #1</Button>
-        <Button class="btn-light btn">Historical #2</Button>
-        <Button class="btn-light btn">Historical #3</Button>
-        <Button class="btn-light btn">Historical #4</Button>
-        <Button class="btn-light btn">Historical #5</Button>
-      </div>
-      <div class="d-flex col-9 container bg-light">
-        <div class="row col-12 row-cols-6 gap-2 justify-content-end bg-light">
-          <div class="bg-info">
-            <p>Test Date</p>
-            <img src="./assets/images/testicon.png" />
-            <p>45</p>
-            <p>1005</p>
-          </div>
-          <div class="bg-info">
-            <p>hi</p>
-          </div>
-          <div class="bg-info">
-            <p>hi</p>
-          </div>
-          <div class="bg-info">
-            <p>hi</p>
-          </div>
-          <div class="bg-info">
-            <p>hi</p>
-          </div>
 
+
+        <div class="d-flex flex-column w-100 ">
+          <div class="row flex-row p-1 ms-2" id="five-day-forecast-header">
+            <h4>5-Day Forecast</h4>
+          </div>
+          <div class="row row-cols-6 gap-3 justify-content-center col-12" id="five-day-container">
+
+            <div class="bg-info p-2">
+              <h6>Test Date</h6>
+              <img src="./assets/images/testicon.png" />
+              <p>45</p>
+              <p>1005</p>
+            </div>
+            <div class="bg-info">
+              <p>hi</p>
+            </div>
+            <div class="bg-info">
+              <p>hi</p>
+            </div>
+            <div class="bg-info">
+              <p>hi</p>
+            </div>
+            <div class="bg-info">
+              <p>hi</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-
-
-    <!-- <div class="border" id="search-bottom-border">
     </div>
 
-    <div class="col-12 col-md-9">
-      <div class="row border selected-city" id="forecast-now">
-        <h2 id="searched-city"></h2>
-        <div id="container-current-weather" class="list-group"></div>
-      </div>
-    </div>
-    <div class="row border" id="fiveday-forecast">
-      <h2 class="col-12" id="forecast"></h2>
-      <div class="d-flex" id="fiveday-container"></div>
-    </div> -->
     <footer class="navbar fixed-bottom justify-content-center">
       <p>
         Created by Jessica Groves &copy; 2022
@@ -107,6 +101,7 @@
     </footer>
   </main>
   <script src="./assets/javascript/index.js"></script>
+  <script type="text/JavaScript" src=" https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.2/moment.min.js"></script>
 </body>
 
 </html>

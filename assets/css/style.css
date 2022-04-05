@@ -1,0 +1,19 @@
+.low {
+  background-color: #299500;
+}
+
+.moderate {
+  background-color: #F7E400
+}
+
+.high {
+  background-color: #F85901;
+}
+
+.veryHigh {
+  background-color: #D80010;
+}
+
+.extreme {
+  background-color: #6B49C8;
+}
