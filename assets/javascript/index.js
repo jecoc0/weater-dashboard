@@ -29,8 +29,13 @@ let iconUrl
 
 const apiKey = 'cb71c23a4cd068740952beb37aae8e8f'
 
-let searchHistory = JSON.parse(localStorage.getItem("search")) || [];
-console.log(searchHistory);
+var loadSearchHistoryFromLocalStorage = function () {
+
+  let searchHistory = JSON.parse(localStorage.getItem("searched cities"))
+  // || [];
+  console.log(searchHistory);
+  return searchHistory;
+}
 
 var findWeatherSubmit = function (event) {
   event.preventDefault();
@@ -42,15 +47,20 @@ var findWeatherSubmit = function (event) {
     searchedCities.unshift(cityName);
     infoColumn.value = "";
     iconEl.removeAttribute("src")
+
+    // if (searchedCities.length > 4) {
+    //   searchedCities.splice(5, 1);
+    // }
   } else {
     alert("Please enter a city to view weather information!")
   }
   saveSearch();
-  searchHistory(cityName);
+  // searchHistory(cityName);
 }
 
 var saveSearch = function () {
   localStorage.setItem("searched cities", JSON.stringify(searchedCities));
+  displayHistory()
 };
 
 
@@ -199,6 +209,22 @@ var display5DayForecast = function (data) {
   }
 }
 
+var displayHistory = function () {
+  var searchHistory = loadSearchHistoryFromLocalStorage();
+  // var displayArray = searchHistory.filter((cityName, index) => index < 5)
+  console.log("searchHistory:", searchHistory)
+  // console.log("displayArray: ", displayArray)
+  // var currentCity = searchedCities[i]
+  // for (let i = 0; i < 5; i++) {
+  //   var historyButton = document.createElement("button")
+  //   historyButton.classList = "btn-light btn";
+  //   historyButton.textContent = ""
+
+  // }
+}
 
 // on click handler for find weather search function
 searchEl.addEventListener("click", findWeatherSubmit)
+
+
+window.onload = displayHistory
