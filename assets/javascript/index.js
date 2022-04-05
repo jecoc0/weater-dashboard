@@ -39,14 +39,14 @@ var findWeatherSubmit = function (event) {
   if (cityName) {
     getCityWeather(cityName);
     getForecast(cityName);
-    searchedCities.unshift({ cityName });
+    searchedCities.unshift(cityName);
     infoColumn.value = "";
     iconEl.removeAttribute("src")
   } else {
     alert("Please enter a city to view weather information!")
   }
-  // saveSearch();
-  // searchHistory(cityName);
+  saveSearch();
+  searchHistory(cityName);
 }
 
 var saveSearch = function () {
@@ -78,24 +78,25 @@ var getCityWeather = function (cityName) {
           windSpeed = data.current.wind_speed
           uvIndex = data.current.uvi
           icon = data.current.weather[0].icon
-          // iconUrl = `http://openweathermap.org/img/wn/${icon}@2x.png`
+          iconUrl = `http://openweathermap.org/img/wn/${icon}@2x.png`
 
-          console.log("temperature:", temperature)
-          console.log("weatherConditions:", weatherConditions)
-          console.log("humidity:", humidity)
-          console.log("windSpeed:", windSpeed)
-          console.log("uvIndex:", uvIndex)
-          console.log("icon", icon)
-          console.log("iconUrl", iconUrl)
-          console.log("weather data:", data)
+          // console.log("temperature:", temperature)
+          // console.log("weatherConditions:", weatherConditions)
+          // console.log("humidity:", humidity)
+          // console.log("windSpeed:", windSpeed)
+          // console.log("uvIndex:", uvIndex)
+          // console.log("icon", icon)
+          // console.log("iconUrl", iconUrl)
+          // console.log("weather data:", data)
 
-          displayWeather(data, cityName, icon, temperature, uvIndex);
+          displayWeather(cityName, icon, temperature, uvIndex);
         })
     })
 }
 
 
 var displayWeather = function (cityName, icon, temperature, uvIndex) {
+
   var uviColor = assignUVColor(uvIndex)
   // clear previous results
   currentWeatherEl.textContent = "";
@@ -115,7 +116,7 @@ var displayWeather = function (cityName, icon, temperature, uvIndex) {
                           <br />
                           Weather Conditions: ${weatherConditions}
                           <br />
-                          Humidity: ${humidity}
+                          Humidity: ${humidity}%
                           <br />
                           Wind Speed: ${windSpeed} MPH
                           <br />
@@ -156,32 +157,47 @@ var getForecast = function (cityName) {
 };
 
 var display5DayForecast = function (data) {
-  var forecast = data.daily;
-  // for (var i = 5; i < forecast.length; i = i + 8) {
-  //   var dailyForecast = forecast[i];
+  forecastEl.innerHTML = ''
+  var forecast = data.list;
+  console.log(data)
+  for (var i = 5; i < forecast.length; i = i + 8) {
+    var dailyForecast = forecast[i];
 
-  var forecastTileEl = document.createElement("div")
-  forecastTileEl.classList = "bg-info p-2"
+    var forecastTileEl = document.createElement("div")
+    forecastTileEl.classList = "bg-info p-2"
 
-  //date header
-  var forecastDateEl = document.createElement("h6").textContent = moment.unix(dailyForecast.dt).format("MMM D");
-  forecastDateEl.classList = "text-center"
-  forecastTileEl.appendChild(forecastDateEl);
+    //date header
+    var forecastDateEl = document.createElement("h6")
+    forecastDateEl.innerHTML = `${moment.unix(dailyForecast.dt).format("MMM D")}`
+    // moment.unix(dailyForecast.dt).format("MMM D");
+    forecastDateEl.classList = "text-center"
+    forecastTileEl.appendChild(forecastDateEl);
 
 
-  //forecast icon
-  var forecastIcon = document.createElement("img")
-  forecastIcon.classList = "text-center";
-  //update ${icon} to ${dailyForecast.data[i].icon}
-  forecastIcon.setAttribute("src", `http://openweathermap.org/img/wn/${icon}@2x.png`)
-  forecastTileEl.appendChild(forecastIcon);
+    //forecast icon
+    var forecastIcon = document.createElement("img")
+    forecastIcon.classList = "text-center";
+    //update ${icon} to ${dailyForecast.data[i].icon}
+    forecastIcon.setAttribute("src", `http://openweathermap.org/img/wn/${dailyForecast.weather[0].icon}@2x.png`)
 
-  //temp 
-  var dailyTempEl = document.createElement("p")
-  dailyTempEl.classList = "text-center";
-  dailyTempEl.textContent = dailyForecast.main.temp + " &deg;F";
+    forecastTileEl.appendChild(forecastIcon);
+
+    //temp 
+    var dailyTempEl = document.createElement("p")
+    dailyTempEl.classList = "text-center";
+    dailyTempEl.textContent = dailyForecast.main.temp + " ° F";
+    forecastTileEl.appendChild(dailyTempEl)
+
+    //humidity
+    var dailyHumidityEl = document.createElement("p")
+    dailyHumidityEl.classList = "text-center";
+    dailyHumidityEl.textContent = dailyForecast.main.humidity + " %";
+    forecastTileEl.appendChild(dailyHumidityEl);
+
+    // Append days to container
+    forecastEl.appendChild(forecastTileEl)
+  }
 }
-// }
 
 
 // on click handler for find weather search function
